@@ -165,14 +165,18 @@
 					setWidth();
 				}
 
-				if (!ta.value && options.placeholder) {
-					// If the textarea is empty, copy the placeholder text into 
-					// the mirror control and use that for sizing so that we 
-					// don't end up with placeholder getting trimmed.
-					mirror.value = ($ta.attr("placeholder") || '') + options.append;
-				} else {
-					mirror.value = ta.value + options.append;
-				}
+                if (!ta.value) {
+                    if (options.placeholder) {
+                        // If the textarea is empty, copy the placeholder text into
+                        // the mirror control and use that for sizing so that we
+                        // don't end up with placeholder getting trimmed.
+                        mirror.value = ($ta.attr("placeholder") || '');
+                    } else {
+                        mirror.value = ''; // if the textarea is empty we don't need to append options.append
+                    }
+                } else {
+                    mirror.value = ta.value + options.append;
+                }
 
 				mirror.style.overflowY = ta.style.overflowY;
 				original = parseInt(ta.style.height,10);
